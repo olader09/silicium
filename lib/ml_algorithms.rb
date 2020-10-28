@@ -34,14 +34,8 @@ module BackPropogation
     end
     #Compute a value of expression
     def ForwardPass(variables_val)
-      @graph.each do |elem|
-        if elem.class != ComputationalGates::Comp_Gate
-          elem.forward_pass
-        else
-          elem.frwrd = variables_val[elem.name]
-        end
-      end
-      return graph.last.frwrd
+      @graph.each {|elem| elem.class != ComputationalGates::Comp_Gate ? elem.forward_pass : elem.frwrd = variables_val[elem.name] } 
+      graph.last.frwrd
     end
     #Compute a gradient value for inputs
     def BackwardPass(loss_value)
